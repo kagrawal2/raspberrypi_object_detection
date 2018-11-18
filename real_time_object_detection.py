@@ -7,6 +7,7 @@ import numpy as np
 import argparse
 import imutils
 import time
+import io
 import cv2
 
 # construct the argument parse and parse the arguments
@@ -38,18 +39,21 @@ print("[INFO] starting video stream...")
 # vs = VideoStream(usePiCamera=True).start()
 # initialize the camera and stream
 camera = PiCamera()
-rawCapture = PiRGBArray(camera)
-vs = camera.capture_continuous(rawCapture, format="bgr",
-    use_video_port=True)
+# rawCapture = PiRGBArray(camera)
+# vs = camera.capture_continuous(rawCapture, format="bgr",
+#     use_video_port=True)
 
 time.sleep(3.0)
 fps = FPS().start()
 
 # loop over the frames from the video stream
-while True:
+stream = io.BytesIO()
+for frame in camera.capture_continuous(stream, format='jpeg'):
+
     # grab the frame from the stream and resize it to have a maximum
     # width of 400 pixels
-    frame = vs.next().array
+    stream.truncate()
+    stream.seek(0)
     frame = imutils.resize(frame, width=400)
  
     # grab the frame dimensions and convert it to a blob
