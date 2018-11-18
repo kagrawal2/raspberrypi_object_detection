@@ -51,6 +51,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr",  use_video_port
     # grab the frame from the stream and resize it to have a maximum
     # width of 400 pixels
     # frame = vs.next().array
+    frame = frame.array
     frame = imutils.resize(frame, width=400)
  
     # grab the frame dimensions and convert it to a blob
