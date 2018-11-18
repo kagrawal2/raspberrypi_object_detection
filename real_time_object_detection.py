@@ -38,9 +38,7 @@ print("[INFO] starting video stream...")
 # vs = VideoStream(usePiCamera=True).start()
 # initialize the camera and stream
 camera = PiCamera()
-camera.resolution = (320, 240)
-camera.framerate = 32
-rawCapture = PiRGBArray(camera, size=(320, 240))
+rawCapture = PiRGBArray(camera)
 vs = camera.capture_continuous(rawCapture, format="bgr",
     use_video_port=True)
 
