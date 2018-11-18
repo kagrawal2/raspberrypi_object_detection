@@ -36,7 +36,6 @@ net = cv2.dnn.readNetFromCaffe(args["prototxt"], args["model"])
 print("[INFO] starting video stream...")
 # vs = VideoStream(src=0).start()
 # vs = VideoStream(usePiCamera=True).start()
-
 # initialize the camera and stream
 camera = PiCamera()
 camera.resolution = (320, 240)
@@ -45,15 +44,14 @@ rawCapture = PiRGBArray(camera, size=(320, 240))
 vs = camera.capture_continuous(rawCapture, format="bgr",
     use_video_port=True)
 
-
 time.sleep(3.0)
 fps = FPS().start()
 
 # loop over the frames from the video stream
-while True:
-    # grab the frame from the threaded video stream and resize it
-    # to have a maximum width of 400 pixels
-    frame = vs.read()
+for (i, f) in enumerate(vs):
+    # grab the frame from the stream and resize it to have a maximum
+    # width of 400 pixels
+    frame = f.array
     frame = imutils.resize(frame, width=400)
  
     # grab the frame dimensions and convert it to a blob
