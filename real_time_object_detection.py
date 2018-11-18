@@ -39,17 +39,18 @@ print("[INFO] starting video stream...")
 # initialize the camera and stream
 camera = PiCamera()
 rawCapture = PiRGBArray(camera)
-vs = camera.capture_continuous(rawCapture, format="bgr",
-    use_video_port=True)
+# vs = camera.capture_continuous(rawCapture, format="bgr",
+#     use_video_port=True)
 
 time.sleep(3.0)
 fps = FPS().start()
 
 # loop over the frames from the video stream
-while True:
+# while True:
+for frame in camera.capture_continuous(rawCapture, format="bgr",  use_video_port=True):
     # grab the frame from the stream and resize it to have a maximum
     # width of 400 pixels
-    frame = vs.next().array
+    # frame = vs.next().array
     frame = imutils.resize(frame, width=400)
  
     # grab the frame dimensions and convert it to a blob
