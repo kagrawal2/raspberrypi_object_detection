@@ -33,8 +33,18 @@ net = cv2.dnn.readNetFromCaffe(args["prototxt"], args["model"])
 # and initialize the FPS counter
 print("[INFO] starting video stream...")
 # vs = VideoStream(src=0).start()
-vs = VideoStream(usePiCamera=True).start()
-time.sleep(2.0)
+# vs = VideoStream(usePiCamera=True).start()
+
+# initialize the camera and stream
+camera = PiCamera()
+camera.resolution = (320, 240)
+camera.framerate = 32
+rawCapture = PiRGBArray(camera, size=(320, 240))
+vs = camera.capture_continuous(rawCapture, format="bgr",
+    use_video_port=True)
+
+
+time.sleep(3.0)
 fps = FPS().start()
 
 # loop over the frames from the video stream
